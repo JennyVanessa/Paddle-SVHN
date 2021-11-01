@@ -16,6 +16,32 @@ from dataset import Dataset
 from evaluator import Evaluator
 from model import Model
 
+# import paddle
+# from paddle.optimizer.lr import LRScheduler
+
+# class StepDecay(LRScheduler):
+#     def __init__(self,
+#                 learning_rate,
+#                 step_size,
+#                 gamma=0.1,
+#                 last_epoch=-1,
+#                 verbose=False):
+#         if not isinstance(step_size, int):
+#             raise TypeError(
+#                 "The type of 'step_size' must be 'int', but received %s." %
+#                 type(step_size))
+#         if gamma >= 1.0:
+#             raise ValueError('gamma should be < 1.0.')
+
+#         self.step_size = step_size
+#         self.gamma = gamma
+#         super(StepDecay, self).__init__(learning_rate, last_epoch, verbose)
+
+#     def get_lr(self):
+#         i = self.last_epoch // self.step_size
+
+
+
 parser = argparse.ArgumentParser()
 parser.add_argument('-d', '--data_dir', default='./data', help='directory to read LMDB files')
 parser.add_argument('-l', '--logdir', default='./logs', help='directory to write logs')
@@ -53,7 +79,7 @@ def _train(path_to_train_lmdb_dir, path_to_val_lmdb_dir, path_to_log_dir,
     duration = 0.0
 
     model = Model()
-    model.cuda()
+    # model.cuda()
 
     transform = Compose([
         RandomCrop([54, 54]),
@@ -62,10 +88,11 @@ def _train(path_to_train_lmdb_dir, path_to_val_lmdb_dir, path_to_log_dir,
     ])
     train_loader = paddle.io.DataLoader(Dataset(path_to_train_lmdb_dir, transform),
                                                batch_size=batch_size, shuffle=True,
-                                               num_workers=4, pin_memory=True)
+                                               num_workers=4)
     evaluator = Evaluator(path_to_val_lmdb_dir)
-    optimizer = optim.SGD(model.parameters(), lr=initial_learning_rate, momentum=0.9, weight_decay=0.0005)
-    scheduler = paddle.optimizer.lr.LRScheduler(optimizer, step_size=training_options['decay_steps'], gamma=training_options['decay_rate'])
+    optimizer = optim.SGD(learning_rate=initial_learning_rate, parameters=model.parameters(),weight_decay=0.0005)
+    scheduler = paddle.optimizer.lr.StepDecay(learning_rate=initial_learning_rate, 
+              step_size=training_options['decay_steps'], gamma=training_options['decay_rate'])
 
     if path_to_restore_checkpoint_file is not None:
         assert os.path.isfile(path_to_restore_checkpoint_file), '%s not found' % path_to_restore_checkpoint_file
@@ -82,11 +109,16 @@ def _train(path_to_train_lmdb_dir, path_to_val_lmdb_dir, path_to_log_dir,
     while True:
         for batch_idx, (images, length_labels, digits_labels) in enumerate(train_loader):
             start_time = time.time()
-            images, length_labels, digits_labels = images.cuda(), length_labels.cuda(), [digit_labels.cuda() for digit_labels in digits_labels]
-            length_logits, digit1_logits, digit2_logits, digit3_logits, digit4_logits, digit5_logits = model.train()(images)
+            
+            images, length_labels, digits_labels = images, length_labels, [digit_labels for digit_labels in digits_labels]
+            # print("digits_labels",digits_labels)
+            # print("iamge================",images)
+            model.train()  
+            length_logits, digit1_logits, digit2_logits, digit3_logits, digit4_logits, digit5_logits = model(images)
+          
             loss = _loss(length_logits, digit1_logits, digit2_logits, digit3_logits, digit4_logits, digit5_logits, length_labels, digits_labels)
 
-            optimizer.zero_grad()
+            optimizer.clear_grad()
             loss.backward()
             optimizer.step()
             scheduler.step()
@@ -97,7 +129,7 @@ def _train(path_to_train_lmdb_dir, path_to_val_lmdb_dir, path_to_log_dir,
                 examples_per_sec = batch_size * num_steps_to_show_loss / duration
                 duration = 0.0
                 print('=> %s: step %d, loss = %f, learning_rate = %f (%.1f examples/sec)' % (
-                    datetime.now(), step, loss.item(), scheduler.get_lr()[0], examples_per_sec))
+                    datetime.now(), step, loss.item(), scheduler.get_lr(), examples_per_sec))
 
             if step % num_steps_to_check != 0:
                 continue
@@ -105,9 +137,11 @@ def _train(path_to_train_lmdb_dir, path_to_val_lmdb_dir, path_to_log_dir,
             losses = np.append(losses, loss.item())
             np.save(path_to_losses_npy_file, losses)
 
+
             print('=> Evaluating on validation dataset...')
             accuracy = evaluator.evaluate(model)
             print('==> accuracy = %f, best accuracy %f' % (accuracy, best_accuracy))
+
 
             if accuracy > best_accuracy:
                 path_to_checkpoint_file = model.store(path_to_log_dir, step=step)
@@ -120,7 +154,8 @@ def _train(path_to_train_lmdb_dir, path_to_val_lmdb_dir, path_to_log_dir,
             print('=> patience = %d' % patience)
             if patience == 0:
                 return
-
+           #######
+           
 
 def main(args):
     path_to_train_lmdb_dir = os.path.join(args.data_dir, 'train.lmdb')
