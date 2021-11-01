@@ -12,7 +12,7 @@ import paddle.nn as nn
 
 #class Model(torch.jit.ScriptModule):
 class Model(nn.Layer):
-    CHECKPOINT_FILENAME_PATTERN = 'model-{}.pdparams'
+    CHECKPOINT_FILENAME_PATTERN = 'model-{}.pth'
 
     __constants__ = ['_hidden1', '_hidden2', '_hidden3', '_hidden4', '_hidden5',
                      '_hidden6', '_hidden7', '_hidden8', '_hidden9', '_hidden10',
@@ -59,9 +59,9 @@ class Model(nn.Layer):
         )
         self._hidden6 = nn.Sequential(
             nn.Conv2D(in_channels=192, out_channels=192, kernel_size=5, padding=2),
-            nn.BatchNorm2d(num_features=192),
+            nn.BatchNorm2D(num_features=192),
             nn.ReLU(),
-            nn.MaxPool2d(kernel_size=2, stride=1, padding=1),
+            nn.MaxPool2D(kernel_size=2, stride=1, padding=1),
             nn.Dropout(0.2)
         )
         self._hidden7 = nn.Sequential(
@@ -130,6 +130,7 @@ class Model(nn.Layer):
         return path_to_checkpoint_file
 
     def restore(self, path_to_checkpoint_file):
-        self.load_state_dict(paddle.load(path_to_checkpoint_file))
+        # self.load_state_dict(paddle.load(path_to_checkpoint_file))
+        paddle.load(path_to_checkpoint_file)
         step = int(path_to_checkpoint_file.split('/')[-1][6:-4])
         return step
