@@ -7,8 +7,7 @@
 <table>
     <tr>
         <th>Methods</th>
-        <th>Steps</th>
-        <th>GPU</th>
+        <th>Model Download</th>
         <th>Batch Size</th>
         <th>Learning Rate</th>
         <th>Patience</th>
@@ -18,31 +17,29 @@
         <th>Accuracy</th>
     </tr>
     <tr>
-        <td>PaddlePaddle_SVHNClassifier</td>
+        <td>Pytorch_SVHN</td>
         <td>
             <a href="https://drive.google.com/open?id=1DSg3F5GpouEvU9n7YSPdUKH1CSmkdwSw">
-                54000
+                torch_model
             </a>
         </td>
-        <td>GTX 1080 Ti</td>
-        <td>1024</td>
-        <td>0.01</td>
+        <td>512</td>
+        <td>0.16</td>
         <td>100</td>
         <td>625</td>
         <td>0.9</td>
         <td>~1700</td>
         <td>95.65%</td>
     </tr>
-    <tr>
-        <td>Pytorch_SVHNClassifier</td>
+        <tr>
+        <td>PaddlePaddle_SVHN</td>
         <td>
             <a href="https://drive.google.com/open?id=1DSg3F5GpouEvU9n7YSPdUKH1CSmkdwSw">
-                54000
+                paddle_model
             </a>
         </td>
-        <td>GTX 1080 Ti</td>
-        <td>512</td>
-        <td>0.16</td>
+        <td>1024</td>
+        <td>0.01</td>
         <td>100</td>
         <td>625</td>
         <td>0.9</td>
