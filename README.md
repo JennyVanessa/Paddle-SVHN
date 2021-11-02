@@ -3,7 +3,7 @@ Classical OCR DCNN reproduction based on PaddlePaddle framework.
 
 This project reproduces multi-digit number recognition network based on the paddlepaddle framework and participates in the Baidu paper reproduction competition. The AIStudio link will is provided as follow:
 
-[link](https://github.com/JennyVanessa/Paddle-SVHN/blob/main/README.md)
+[link](https://aistudio.baidu.com/aistudio/projectdetail/2561512)
 
 ## Results_Compared 
 
