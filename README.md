@@ -1,7 +1,8 @@
 # Paddle-SVHN
 Classical OCR DCNN reproduction based on PaddlePaddle framework.
 
-This project reproduces multi-digit number recognition network based on the paddlepaddle framework and participates in the Baidu paper reproduction competition. The AIStudio link will is provided as follow:
+This project reproduces [Multi-digit Number Recognition from Street View
+Imagery using Deep Convolutional Neural Networks](https://arxiv.org/pdf/1312.6082.pdf) based on the paddlepaddle framework and participates in the Baidu paper reproduction competition. The AIStudio link will is provided as follow:
 
 [link](https://aistudio.baidu.com/aistudio/projectdetail/2561512)
 
