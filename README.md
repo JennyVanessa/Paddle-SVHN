@@ -48,6 +48,9 @@
     </tr>
 </table>
 
+you can find our aistudio project here:
+[link](https://github.com/JennyVanessa/Paddle-SVHN/blob/main/README.md)
+
 # Introduction
 
 The main idea of this exercise is to study the evolvement of the state of the art and main work along topic of visual attention model. There are two datasets that are studied: augmented MNIST and SVHN. The former dataset focused on canonical problem  —  handwritten digits recognition, but with cluttering and translation, the latter focus on real world problem  —  street view house number (SVHN) transcription. In this exercise, the following papers are studied in the way of developing a good intuition to choose a proper model to tackle each of the above challenges.
