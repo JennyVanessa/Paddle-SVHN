@@ -22,7 +22,6 @@ The main idea of this exercise is to study the evolvement of the state of the ar
 
 # 2 Results_Compared 
 
-[SVHN Dataset](http://ufldl.stanford.edu/housenumbers/)
 
 <table>
     <tr>
@@ -201,13 +200,15 @@ pip install lmdb
 ├─convert_to_lmdb.py                         
 ├─dataset.py                
 ├─eval.py                           
-├─models.py    
+├─model.py    
 ├─evaluator.py
 ├─draw_bbox.py
 ├─example_pb2.py
 ├─infer.py
 ├─read_lmdb_sample.py
-├─visiualize.py                   
+├─visiualize.py
+├─train.py
+├─train.log
 ├─images                          
 │  test1.png              
 │-logs                        
