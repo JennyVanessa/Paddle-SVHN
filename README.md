@@ -53,7 +53,7 @@ The main idea of this exercise is to study the evolvement of the state of the ar
         <tr>
         <td>Paddle_SVHN</td>
         <td>
-            <a href="https://aistudio.baidu.com/ibdgpu2/user/950746/2598446/files/logs/model-361000.pdparams?_xsrf=2%7C2f6432d2%7C550b3b3ee079dbc51d252c336f98ad61%7C1636442883">
+            <a href="https://pan.baidu.com/s/1g3ZXCF2mCCXvxhTUUsKjYg">
                 paddle_model
             </a>
         </td>
