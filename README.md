@@ -180,6 +180,7 @@ pip install lmdb
     
    The test1.png shows:
    
+   ![test1.png](https://github.com/JennyVanessa/Paddle-SVHN/blob/main/image/test1.png)
    
    The infer output is:
    
