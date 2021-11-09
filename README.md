@@ -195,3 +195,23 @@ pip install lmdb
     or
     $ rm -rf ./logs_retrain
     
+    
+# 6 Code Structure
+```
+├─convert_to_lmdb.py                         
+├─dataset.py                
+├─eval.py                           
+├─models.py    
+├─evaluator.py
+├─draw_bbox.py
+├─example_pb2.py
+├─infer.py
+├─read_lmdb_sample.py
+├─visiualize.py                   
+├─images                          
+│  test1.png              
+│-logs                        
+│  model-359000.pdarams                        
+
+```
+    
