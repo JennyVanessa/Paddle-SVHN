@@ -211,8 +211,7 @@ pip install lmdb
 ├─train.log
 ├─images                          
 │  test1.png              
-│-logs                        
-│  model-359000.pdarams                        
+                    
 
 ```
     
