@@ -1,12 +1,26 @@
 # Paddle-SVHN
-Classical OCR DCNN reproduction based on PaddlePaddle framework.
 
 This project reproduces [Multi-digit Number Recognition from Street View
-Imagery using Deep Convolutional Neural Networks](https://arxiv.org/pdf/1312.6082.pdf) based on the paddlepaddle framework and participates in the Baidu paper reproduction competition. The AIStudio link is provided as follow:
+Imagery using Deep Convolutional Neural Networks](https://arxiv.org/pdf/1312.6082.pdf) based on the paddlepaddle framework and participates in the Baidu paper reproduction competition.)
 
-[link](https://aistudio.baidu.com/aistudio/projectdetail/2561512)
 
-## Results_Compared 
+# 1 Introduction
+
+The main idea of this exercise is to study the evolvement of the state of the art and main work along topic of visual attention model. There are two datasets that are studied: augmented MNIST and SVHN. The former dataset focused on canonical problem  —  handwritten digits recognition, but with cluttering and translation, the latter focus on real world problem  —  street view house number (SVHN) transcription. In this exercise, the following papers are studied in the way of developing a good intuition to choose a proper model to tackle each of the above challenges.
+
+### Paper:
+
+* [1] Goodfellow I J, Bulatov Y, Ibarz J, et al. Multi-digit number recognition from street view imagery using deep convolutional neural networks[J]. arXiv preprint arXiv:1312.6082, 2013.
+
+### Reference project
+
+* https://github.com/potterhsu/SVHNClassifier-PyTorch
+
+### The link of aistudio:
+
+* AI Studio: https://aistudio.baidu.com/aistudio/projectdetail/2598446?forkThirdPart=1
+
+# 2 Results_Compared 
 
 [SVHN Dataset](http://ufldl.stanford.edu/housenumbers/)
 
@@ -38,9 +52,9 @@ Imagery using Deep Convolutional Neural Networks](https://arxiv.org/pdf/1312.608
         <td>95.65%</td>
     </tr>
         <tr>
-        <td>PaddlePaddle_SVHN</td>
+        <td>Paddle_SVHN</td>
         <td>
-            <a href="https://drive.google.com/open?id=1DSg3F5GpouEvU9n7YSPdUKH1CSmkdwSw">
+            <a href="https://aistudio.baidu.com/ibdgpu2/user/950746/2598446/files/logs/model-361000.pdparams?_xsrf=2%7C2f6432d2%7C550b3b3ee079dbc51d252c336f98ad61%7C1636442883">
                 paddle_model
             </a>
         </td>
@@ -50,33 +64,37 @@ Imagery using Deep Convolutional Neural Networks](https://arxiv.org/pdf/1312.608
         <td>625</td>
         <td>0.9</td>
         <td>~1700</td>
-        <td>95.65%</td>
+        <td>95.36%</td>
     </tr>
 </table>
 
+# 3 Dataset
+
+* [SVHN Dataset](http://ufldl.stanford.edu/housenumbers/) format 1
+  * test.tar.gz
+  * train.tar.gz
+  * extra.tar.gz
 
 
-# Introduction
+# 4 Recommended environment
 
-The main idea of this exercise is to study the evolvement of the state of the art and main work along topic of visual attention model. There are two datasets that are studied: augmented MNIST and SVHN. The former dataset focused on canonical problem  —  handwritten digits recognition, but with cluttering and translation, the latter focus on real world problem  —  street view house number (SVHN) transcription. In this exercise, the following papers are studied in the way of developing a good intuition to choose a proper model to tackle each of the above challenges.
+* Python 3.6
+* paddlepaddle-gpu 2.0.2
+* visdom
+* protobuf
+* lmdb
 
-For more detail, please refer to this [blog]()
 
-## Recommended environment
+# 5 Start
+
+### step1: Clone
 ```
-Python 3.6+
-paddlepaddle-gpu 2.0.2
-nccl 2.0+
-editdistance
-visdom
-h5py
-protobuf
-lmdb
+git clone https://github.com/JennyVanessa/Paddle-SVHN.git
+cd Paddle-SVHN
 ```
 
-## Install
+### step2: Pip installl
 
-### Install env
 Install paddle following the official [tutorial](https://www.paddlepaddle.org.cn/documentation/docs/zh/install/index_cn.html).
 ```shell script
 pip install visdom
@@ -84,7 +102,8 @@ pip install h5py
 pip install protobuf
 pip install lmdb
 ```
-## Dataset
+### step3: Download dataset
+
 1. Download [SVHN Dataset](http://ufldl.stanford.edu/housenumbers/) format 1
 
 2. Extract to data folder, now your folder structure should be like below:
@@ -108,61 +127,70 @@ pip install lmdb
                 - digitStruct.mat
     ```
 
-## Usage
+### step4: Convert Dataset to Lmdb format
 
-1. (Optional) Take a glance at original images with bounding boxes
-
-    ```
-    Open `draw_bbox.ipynb` in Jupyter
-    ```
-
-1. Convert to LMDB format
-
-    ```
     $ python convert_to_lmdb.py --data_dir ./data
-    ```
 
-1. (Optional) Test for reading LMDBs
 
-    ```
-    Open `read_lmdb_sample.ipynb` in Jupyter
-    ```
+### step5: Train
+   Save training log in train.log file and save trained model in ./logs directory
 
-1. Train
+    $ python train.py --data_dir ./data --logdir ./logs >> train.log
+    
+   The output is:
+   
+    data/test.lmdb
+    Start training
+    => 2021-11-01 16:47:58.488561: step 100, loss = 7.821150, learning_rate = 0.100000 (2290.5 examples/sec)
+    => 2021-11-01 16:48:43.666231: step 200, loss = 7.897614, learning_rate = 0.100000 (2284.5 examples/sec)
+    => 2021-11-01 16:49:30.083858: step 300, loss = 7.818493, learning_rate = 0.100000 (2293.1 examples/sec)
+    => 2021-11-01 16:50:15.438407: step 400, loss = 7.806008, learning_rate = 0.100000 (2276.1 examples/sec)
+    => 2021-11-01 16:51:02.383038: step 500, loss = 7.821648, learning_rate = 0.100000 (2284.2 examples/sec)
+    => 2021-11-01 16:51:47.870291: step 600, loss = 7.811975, learning_rate = 0.100000 (2269.1 examples/sec)
+    => 2021-11-01 16:52:34.556187: step 700, loss = 7.864832, learning_rate = 0.100000 (2283.2 examples/sec)
+    => 2021-11-01 16:53:20.091155: step 800, loss = 7.786717, learning_rate = 0.090000 (2266.6 examples/sec)
+    => 2021-11-01 16:54:06.938361: step 900, loss = 7.849339, learning_rate = 0.090000 (2278.9 examples/sec)
+    => 2021-11-01 16:54:52.568350: step 1000, loss = 7.795635, learning_rate = 0.090000 (2261.9 examples/sec)
+    => Model saved to file: ./logs/model-1000.pdparams
+    => patience = 100
+    => Evaluating on validation dataset...
+    ==> accuracy = 0.022880, best accuracy 0.000000
+    ...
+    
 
-    ```
-    $ python train.py --data_dir ./data --logdir ./logs
-    ```
+   Retrain if you need
 
-1. Retrain if you need
+    
+    $ python train.py --data_dir ./data --logdir ./logs_retrain --restore_checkpoint ./logs/model-100.pdparams
+    
+### step6: Evaluate
 
-    ```
-    $ python train.py --data_dir ./data --logdir ./logs_retrain --restore_checkpoint ./logs/model-100.pth
-    ```
+    $ python eval.py --data_dir ./data ./logs/model-100.pdparams
+    
+   The output is:
+   
+    Start evaluating
+    Evaluate /home/aistudio/logs/model-359000.pdparams on /home/aistudio/data/test.lmdb, accuracy = 0.953551
+    Done
+    
+### step7: Infer
 
-1. Evaluate
+    
+    $ python infer.py --checkpoint=./logs/model-100.pdparams ./image/test1.png
+    
+   The test1.png shows:
+   
+   
+   The infer output is:
+   
+    length: 2
+    digits: 7 5 10 10 10
+    
 
-    ```
-    $ python eval.py --data_dir ./data ./logs/model-100.pth
-    ```
+### step8: Clean
 
-1. Visualize
-
-    ```
-    $ python -m visdom.server
-    $ python visualize.py --logdir ./logs
-    ```
-
-1. Infer
-
-    ```
-    $ python infer.py --checkpoint=./logs/model-100.pth ./images/test1.png
-    ```
-
-1. Clean
-
-    ```
+    
     $ rm -rf ./logs
     or
     $ rm -rf ./logs_retrain
-    ```
+    
