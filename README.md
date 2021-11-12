@@ -53,8 +53,8 @@ The main idea of this exercise is to study the evolvement of the state of the ar
         <tr>
         <td>Paddle_SVHN</td>
         <td>
-            <a href="https://pan.baidu.com/s/1VItudoNaWjxiW3YEb33XAg" Extraction_code=v4yj>
-                paddle_model
+            <a href="https://pan.baidu.com/s/1VItudoNaWjxiW3YEb33XAg">
+                paddle_model (Extraction_code=v4yj)
             </a>
         </td>
         <td>1024</td>
