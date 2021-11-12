@@ -47,13 +47,13 @@ The main idea of this exercise is to study the evolvement of the state of the ar
         <td>100</td>
         <td>625</td>
         <td>0.9</td>
-        <td>~1700</td>
+        <td>~1700</td> 
         <td>95.65%</td>
     </tr>
         <tr>
         <td>Paddle_SVHN</td>
         <td>
-            <a href="https://pan.baidu.com/s/1g3ZXCF2mCCXvxhTUUsKjYg">
+            <a href="https://pan.baidu.com/s/1VItudoNaWjxiW3YEb33XAg" Extraction_code=v4yj>
                 paddle_model
             </a>
         </td>
@@ -63,7 +63,7 @@ The main idea of this exercise is to study the evolvement of the state of the ar
         <td>625</td>
         <td>0.9</td>
         <td>~1700</td>
-        <td>95.36%</td>
+        <td>95.71%</td>
     </tr>
 </table>
 
