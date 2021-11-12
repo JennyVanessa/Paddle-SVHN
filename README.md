@@ -18,7 +18,7 @@ The main idea of this exercise is to study the evolvement of the state of the ar
 
 ### The link of aistudio:
 
-* AI Studio: https://aistudio.baidu.com/aistudio/projectdetail/2598446?forkThirdPart=1
+* AI Studio: https://aistudio.baidu.com/aistudio/projectdetail/2598446?contributionType=1
 
 # 2 Results_Compared 
 
